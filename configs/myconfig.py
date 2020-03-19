@@ -30,13 +30,15 @@ process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(100)
+    input = cms.untracked.int32(10)
 )
 
 # Input source
 process.source = cms.Source("PoolSource",
         fileNames = cms.untracked.vstring(
-'/store/mc/PhaseIIMTDTDRAutumn18DR/SingleE_FlatPt-2to100/FEVT/PU200_103X_upgrade2023_realistic_v2-v1/70000/FF17CBE6-81E5-8D43-B58B-6DF17222820E.root',
+#'/store/mc/PhaseIIMTDTDRAutumn18DR/SingleE_FlatPt-2to100/FEVT/PU200_103X_upgrade2023_realistic_v2-v1/70000/FF17CBE6-81E5-8D43-B58B-6DF17222820E.root',
+'/store/mc/PhaseIIMTDTDRAutumn18DR/DYToLL_M-50_14TeV_TuneCP5_pythia8/FEVT/PU200_103X_upgrade2023_realistic_v2-v2/90002/590CB406-985F-5546-B1C9-3024126B9648.root',
+
 ),
     # fileNames = cms.untracked.vstring('root://cms-xrd-global.cern.ch//store/mc/PhaseIIMTDTDRAutumn18DR/DYToLL_M-50_14TeV_pythia8/FEVT/PU200_pilot_103X_upgrade2023_realistic_v2_ext4-v1/280000/FF5C31D5-D96E-5E48-B97F-61A0E00DF5C4.root'),
     #fileNames = cms.untracked.vstring('file:/data/cerminar/F9B9F776-3DB1-5040-B16D-9B55CCCD3F82.root'),
@@ -71,7 +73,7 @@ process.FEVTDEBUGHLToutput = cms.OutputModule("PoolOutputModule",
 # Additional output definition
 process.TFileService = cms.Service(
     "TFileService",
-    fileName = cms.string("ntuple.root")
+    fileName = cms.string("ntuple_DY.root")
     )
 
 
@@ -267,7 +269,9 @@ for seq in [process.simTwinMuxDigis,
             process.L1TowerCalibrationProducer,
             process.L1CaloJetProducer,
             process.L1CaloJetHTTProducer,
-            process.l1KBmtfStubMatchedMuons,
+            process.l1TrackerPlusStubsSequence,
+            #process.l1KBmtfStubMatchedMuons,
+            process.l1TkMuonStubOverlap,
             process.l1TkMuonStubEndCap,
             process.l1TkMuonStubEndCapS12,
             # process.L1TkElectronsCrystal,
@@ -303,10 +307,13 @@ for seq in [process.simTwinMuxDigis,
             process.ak4PFL1CaloCorrected,
             process.ak4PFL1PFCorrected,
             process.ak4PFL1PuppiCorrected,
+            process.Phase1L1TJetsSequence,
             process.l1PFMetCalo,
             process.l1PFMetPF,
             process.l1PFMetPuppi,
             process.l1pfTauProducer,
+            process.produceL1HPSPFTausPF,
+            process.produceL1HPSPFTausPuppi,
             process.l1NNTauProducer,
             process.l1NNTauProducerPuppi,
             process.l1TkBsCandidates,
@@ -334,7 +341,7 @@ for seq in [process.simTwinMuxDigis,
             process.simEcalEBTriggerPrimitiveDigis,
             # process.l1TkMuonStubOverlap,
             process.l1pfProducerHGCalNoTK,
-            process.l1pfPhase1L1TJetProducer,
+            #process.l1pfPhase1L1TJetProducer,
             # process.L1TkElectronsEllipticMatchCrystal,
             process.L1TkIsoElectronsHGC,
             process.L1TkElectronsLooseHGC,
